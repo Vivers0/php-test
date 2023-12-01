@@ -1,3 +1,5 @@
-<tempate>
-    <h1>Main page</h1>
-</tempate>
+<template>
+    <div>
+        <h1>Main page</h1>
+    </div>
+</template>

@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\FormUserController;
+use App\Http\Controllers\Form\FormUserController;
+use App\Http\Controllers\SortrudnikController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +20,14 @@ Route::get('/', function () {
     return view('app');
 });
 
-Route::get('/formuser', [FormUserController::class, 'index']);
-Route::get('/formuser/delete/{id}', [FormUserController::class, 'destroy']);
+Route::group(['prefix' => '/formuser', 'namespace' => 'Form'], function () {
+    Route::get('/', [FormUserController::class, 'index']);
+    Route::get('/create', [FormUserController::class, 'createGet']);
+    Route::post('/create', [FormUserController::class, 'createPost']);
+    Route::get('/delete/{id}', [FormUserController::class, 'destroy']);
+});
+
+Route::group(['prefix' => '/sotrudnik'], function () {
+    Route::get('/create', [SortrudnikController::class, 'create']);
+    Route::post('/create', [SortrudnikController::class, 'store']);
+});
