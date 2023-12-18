@@ -9,5 +9,13 @@ class Files extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['path'];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'path',
+        'type'
+    ];
 }
