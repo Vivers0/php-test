@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Users\UsersController;
-
 use Illuminate\Support\Facades\Route;
+
+use \App\Http\Controllers\FileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,13 +19,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => '/users', 'namespace' => 'Users'], function () {
-    Route::get('/', [UsersController::class, 'index']);
-    Route::get('/export', [UsersController::class, 'export']);
-
-    Route::get('/create', [UsersController::class, 'create']);
-    Route::post('/create', [UsersController::class, 'store'])->name("users.create");
-    
-    Route::get('/import', [UsersController::class, 'import']);
-    Route::post('/import', [UsersController::class, 'update'])->name("users.update");
-});
+Route::get("/upload", [FileController::class, 'index']);
+Route::post("/upload", [FileController::class, 'store'])->name('file.store');
