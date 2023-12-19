@@ -6,6 +6,7 @@ use App\Models\Files;
 use ErlandMuchasaj\LaravelFileUploader\Exceptions\UploadFailed;
 use ErlandMuchasaj\LaravelFileUploader\FileUploader;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
@@ -43,5 +44,20 @@ class FileController extends Controller
            ->back()
            ->with('success', 'File has been uploaded!')
            ->with('file', $response);
+   }
+
+   public function show($id) {
+    $file = Files::where("id", "=", $id)->first();
+
+    if ($file && $file['path']) {
+        return view("info", ["path" => $file["path"], "type" => $file["type"], "id" => $file["id"] ]);
+    }
+   }
+
+   public function download($id) {
+    $file = Files::where("id", "=", $id)->first();
+    $full_path = FileUploader::path($file["path"]);
+
+    return response()->download($full_path);
    }
 }
